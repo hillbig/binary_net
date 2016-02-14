@@ -22,7 +22,7 @@ Usage
 ```
 
 Result
----
+```
 load MNIST dataset
 epoch 1
 graph generated
