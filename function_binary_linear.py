@@ -90,7 +90,7 @@ class BinaryLinearFunction(function.Function):
 
 
 def binary_linear(x, W, b=None):
-    """Linear function, or affine transformation.
+    """Binary Linear function, or affine transformation.
 
     It accepts two or three arguments: an input minibatch ``x``, a weight
     matrix ``W``, and optionally a bias vector ``b``. It computes

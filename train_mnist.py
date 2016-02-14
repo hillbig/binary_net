@@ -76,7 +76,9 @@ for epoch in six.moves.range(1, n_epoch + 1):
     perm = np.random.permutation(N)
     sum_accuracy = 0
     sum_loss = 0
+    net.train = True
     for i in six.moves.range(0, N, batchsize):
+
         x = chainer.Variable(xp.asarray(x_train[perm[i:i + batchsize]]))
         t = chainer.Variable(xp.asarray(y_train[perm[i:i + batchsize]]))
 
@@ -99,11 +101,13 @@ for epoch in six.moves.range(1, n_epoch + 1):
     # evaluation
     sum_accuracy = 0
     sum_loss = 0
+#    net.train = False
     for i in six.moves.range(0, N_test, batchsize):
+        # these volatile='on' but current chainer has bug on batch normalization
         x = chainer.Variable(xp.asarray(x_test[i:i + batchsize]),
-                             volatile='on')
+                             volatile='off')
         t = chainer.Variable(xp.asarray(y_test[i:i + batchsize]),
-                             volatile='on')
+                             volatile='off')
         loss = model(x, t)
         sum_loss += float(loss.data) * len(t.data)
         sum_accuracy += float(model.accuracy.data) * len(t.data)
