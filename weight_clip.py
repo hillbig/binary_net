@@ -1,3 +1,4 @@
+import numpy
 from chainer import cuda
 
 class WeightClip(object):
@@ -34,6 +35,6 @@ class WeightClip(object):
             p = param.data
             with cuda.get_device(p) as dev:
                 if int(dev) == -1:
-                    p = numpy.min(self.high, numpy.max(self.low, p))
+                    numpy.clip(p, self.low, self.high)
                 else:
                     kernel(self.low, self.high, p)
